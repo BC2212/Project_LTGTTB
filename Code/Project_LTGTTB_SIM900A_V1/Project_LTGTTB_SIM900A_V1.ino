@@ -13,7 +13,7 @@ char smstext[160]; // noi dung sms
 char number[20]; // so dien thoai format
 
 void setup(){
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println("Gui va nhan tin nhan");
   
   if(gsm.begin(9600)){

@@ -9,6 +9,8 @@ SMSGSM sms;
 const int DHTPin = 12;
 const int DHTType = DHT11;
 
+const long int Baudrate = 9600;
+
 #define _GSM_TXPIN_ 3
 #define _GSM_RXPIN_ 4
 
@@ -21,13 +23,11 @@ DHT dht(DHTPin, DHTType);
 
 void setup() {
 
-  Serial.begin(9600);
+  Serial.begin(Baudrate);
   dht.begin();
-
-  Serial.begin(115200);
   Serial.println("Gui va nhan tin nhan");
 
-  if (gsm.begin(9600)) {
+  if (gsm.begin(Baudrate)) {
     Serial.println("status=READY");
     started = true;
   } else
@@ -59,7 +59,7 @@ void loop() {
         String _smstext = smstext;
         if (_smstext == "NHIET_DO") {
           Serial.print("Nhiet do la: ");
-          Serial.print(t);
+          Serial.println(t);
         } else {
           Serial.println("Tin nhan sai cu phap");
         }
