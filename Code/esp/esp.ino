@@ -34,6 +34,16 @@ char namespace_esp8266[] = "esp8266"; //Thêm Arduino
 extern String RID;
 extern String Rfull;
 
+void defaultCommand(String command){
+  char *json = sCmd.next();
+  client.send(command, (String) json);  //Gửi dữ liệu về cho Socket Server
+  Serial.print("--------------");
+  //In ra serial monitor để debug
+  Serial.print(command);
+  Serial.print(' ');
+  Serial.println(json);
+}
+
 void setup() {
   Serial.begin(Baudrate);
   mySerial.begin(Baudrate); //Bật SoftwareSerial để giao tiếp với Arduino, baudrate trùng với SoftwareSerial trên Arduino
@@ -96,14 +106,4 @@ void loop() {
     client.reconnect(host, port, namespace_esp8266);
   }
   sCmd.readSerial();
-}
-
-void defaultCommand(String command){
-  char *json = sCmd.next();
-  client.send(command, (String) json);  //Gửi dữ liệu về cho Socket Server
-  Serial.print("--------------");
-  //In ra serial monitor để debug
-  Serial.print(command);
-  Serial.print(' ');
-  Serial.println(json);
 }

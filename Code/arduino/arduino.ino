@@ -57,13 +57,15 @@ void GetTemperature(){
 //  Serial.println((String) json);
   StaticJsonBuffer<200> jsonBuffer; //Tạo buffer json có khả năng chứa tối đa 200 kí tự
   JsonObject& root = jsonBuffer.parseObject(json);  //Đặt một biến root mang kiểu json
-  root["digital"] = temperature;
-  Serial.println((String) root);
+//  root["digital"] = temperature;
+    root["digital"] = "Test";
+//  Serial.println((String) root);
 
   //Gửi đi
   //In ra cổng SoftwareSerial để ESP8266 nhận
   mySerial.print("TEMPERATURE");  //Gửi tên lệnh
   mySerial.print('\r'); //Gửi /r
   root.printTo(mySerial);   //Gửi chuỗi JSON
+  root.printTo(Serial);
   mySerial.print('\r');
 }
