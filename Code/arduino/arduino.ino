@@ -43,7 +43,12 @@ void loop() {
 
   if (millis() - chuky1 > CHU_KY_1_LA_BAO_NHIEU){
     chuky1 = millis();
-    GetTemperature();
+//    GetTemperature();
+  char json[] = "{\"hello\":\"world\"}";
+StaticJsonBuffer<200> jsonBuffer;
+JsonObject& object = jsonBuffer.parseObject(json);
+const char* world = object["hello"];
+Serial.println(world);
   }
   
 //  Serial.println(temperature);
@@ -53,19 +58,22 @@ void loop() {
 void GetTemperature(){
 //  Serial.print("Temperature: ");
 //  Serial.println(temperature);
-  char *json = sCmd.next();
-//  Serial.println((String) json);
-  StaticJsonBuffer<200> jsonBuffer; //Tạo buffer json có khả năng chứa tối đa 200 kí tự
+  char* json = sCmd.next();
+  StaticJsonBuffer<200> jsonBuffer; 
+  
+  //Tạo buffer json có khả năng chứa tối đa 200 kí t
+//  JsonObject& root = jsonBuffer.createObject();
   JsonObject& root = jsonBuffer.parseObject(json);  //Đặt một biến root mang kiểu json
+
 //  root["digital"] = temperature;
     root["digital"] = "Test";
-//  Serial.println((String) root);
+root.printTo(Serial);
 
   //Gửi đi
   //In ra cổng SoftwareSerial để ESP8266 nhận
   mySerial.print("TEMPERATURE");  //Gửi tên lệnh
   mySerial.print('\r'); //Gửi /r
   root.printTo(mySerial);   //Gửi chuỗi JSON
-  root.printTo(Serial);
+//  root.printTo(Serial);
   mySerial.print('\r');
 }
