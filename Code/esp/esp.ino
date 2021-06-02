@@ -21,9 +21,6 @@ SocketIOClient client;
 //WiFi nhà Q
 const char* ssid = "BC22QN";
 const char* password = "300736253";
-//WiFi C202
-//const char* ssid = "C202";
-//const char* password = "anti.nms";
 
 char host[] = "192.168.10.22"; //Nếu kết nối đến heroku thì dùng subdomain
 int port = 3484;  //Nếu kết nối đến heroku thì dùng port 80

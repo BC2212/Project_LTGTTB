@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Users/ngqua/Documents/Arduino/libraries/Adafruit_Unified_Sensor",
+                "C:/Users/ngqua/Documents/Arduino/libraries/ArduinoJson",
+                "C:/Users/ngqua/Documents/Arduino/libraries/ArduinoSerialCommand-master",
+                "C:/Users/ngqua/Documents/Arduino/libraries/DHT_sensor_library",
+                "C:/Users/ngqua/Documents/Arduino/libraries/GSM-GPRS-GPS-Shield-GSMSHIELD",
+                "C:/Users/ngqua/Documents/Arduino/libraries/Kalman",
+                "C:/Users/ngqua/Documents/Arduino/libraries/SimpleKalmanFilter",
+                "C:/Users/ngqua/Documents/Arduino/libraries/Socket.io-v1.x-Library-master",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/",
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/",
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr/",
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/compat/",
+                "C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/util/",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino/",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/",
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}

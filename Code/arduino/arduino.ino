@@ -18,7 +18,8 @@ DHT dht(DHTPin, DHT11);
 float humidity;
 float temperature;
 
-void setup() {
+void setup()
+{
   //Khởi tạo Serial.
   Serial.begin(Baudrate);
   //Khởi tạo SoftwareSerial, baudrate phải trùng với ESP8266
@@ -37,43 +38,46 @@ void setup() {
 unsigned long chuky1 = 0;
 const unsigned long CHU_KY_1_LA_BAO_NHIEU = 3000; //Cứ sau 5000ms = 5s thì chu kỳ lặp lại
 
-void loop() {
+void loop()
+{
   humidity = dht.readHumidity();
   temperature = dht.readTemperature();
 
-  if (millis() - chuky1 > CHU_KY_1_LA_BAO_NHIEU){
+  if (millis() - chuky1 > CHU_KY_1_LA_BAO_NHIEU)
+  {
     chuky1 = millis();
-//    GetTemperature();
-  char json[] = "{\"hello\":\"world\"}";
-StaticJsonBuffer<200> jsonBuffer;
-JsonObject& object = jsonBuffer.parseObject(json);
-const char* world = object["hello"];
-Serial.println(world);
+    //    GetTemperature();
+    char json[] = "{\"hello\":\"world\"}";
+    StaticJsonBuffer<200> jsonBuffer;
+    JsonObject &object = jsonBuffer.parseObject(json);
+    const char *world = object["hello"];
+    Serial.println(world);
   }
-  
-//  Serial.println(temperature);
+
+  //  Serial.println(temperature);
   sCmd.readSerial();
 }
 
-void GetTemperature(){
-//  Serial.print("Temperature: ");
-//  Serial.println(temperature);
-  char* json = sCmd.next();
-  StaticJsonBuffer<200> jsonBuffer; 
-  
-  //Tạo buffer json có khả năng chứa tối đa 200 kí t
-//  JsonObject& root = jsonBuffer.createObject();
-  JsonObject& root = jsonBuffer.parseObject(json);  //Đặt một biến root mang kiểu json
+void GetTemperature()
+{
+  //  Serial.print("Temperature: ");
+  //  Serial.println(temperature);
+  char *json = sCmd.next();
+  StaticJsonBuffer<200> jsonBuffer;
 
-//  root["digital"] = temperature;
-    root["digital"] = "Test";
-root.printTo(Serial);
+  //Tạo buffer json có khả năng chứa tối đa 200 kí t
+  //  JsonObject& root = jsonBuffer.createObject();
+  JsonObject &root = jsonBuffer.parseObject(json); //Đặt một biến root mang kiểu json
+
+  //  root["digital"] = temperature;
+  root["digital"] = "Test";
+  root.printTo(Serial);
 
   //Gửi đi
   //In ra cổng SoftwareSerial để ESP8266 nhận
-  mySerial.print("TEMPERATURE");  //Gửi tên lệnh
-  mySerial.print('\r'); //Gửi /r
-  root.printTo(mySerial);   //Gửi chuỗi JSON
-//  root.printTo(Serial);
+  mySerial.print("TEMPERATURE"); //Gửi tên lệnh
+  mySerial.print('\r');          //Gửi /r
+  root.printTo(mySerial);        //Gửi chuỗi JSON
+                                 //  root.printTo(Serial);
   mySerial.print('\r');
 }
