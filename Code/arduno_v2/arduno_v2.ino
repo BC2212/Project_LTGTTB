@@ -1,21 +1,27 @@
-
 #include <SoftwareSerial.h>
+#include <DHT.h>
 
-SoftwareSerial espSerial(2, 3);
+#define _ESP_RX 2
+#define _ESP_TX 3
+#define SerialBaudrate 9600 //Baudrate dùng để debug
+#define SSBaudrate 4800 //Baudrate dùng cho SoftwareSerial
+
+SoftwareSerial espSerial(_ESP_RX, _ESP_TX);
+
+const int DHTPin = 12;
+const int DHTType = DHT11;
+DHT dht(DHTPin, DHTType);
 
 void setup(){
-  Serial.begin(9600);
-  espSerial.begin(4800);
+  pinMode(_ESP_RX, INPUT);
+  pinMode(_ESP_TX, OUTPUT);
+  Serial.begin(SerialBaudrate);
+  espSerial.begin(SSBaudrate);
+  dht.begin();
 }
 
 void loop(){
-  while(espSerial.available()>0){
-//    String val = (String) espSerial.readString();
-////    if(espSerial.read() == '\n'){
-////      Serial.println(val);
-////    }
-//    Serial.println(val);
-    Serial.println(Serial.read());
-  }
-  delay(30);
+  espSerial.print(dht.readTemperature());
+  espSerial.println("\n");
+  delay(500);
 }
