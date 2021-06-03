@@ -1,7 +1,7 @@
-#include <SoftwareSerial.h>
+#include <SoftwareSerial.h> //Thư viện sử dụng softwareserial. SoftwareSerial sẽ tạo ra một port Serial ảo
 #include <SocketIOClient.h>
 #include <ESP8266WiFi.h>
-#include <ArduinoJson.h>
+#include <ArduinoJson.h>  //Thư viện tạo json
 
 #define RX D1
 #define TX D2
@@ -16,11 +16,12 @@ SocketIOClient client;
 //char* pwd = "300736253";
 //char host[] = "192.168.10.22";
 
-char* ssid = "C202";
-char* pwd = "ciscoc202";
-char host[] = "192.168.10.45";
+char* ssid = "TTCisco";
+char* pwd = "cisco@2020";
+char host[] = "arcane-basin-01889.herokuapp.com";
 
-int port = 3484;
+//int port = 3484;
+int port = 80;
 char namespace_esp8266[] = "esp8266";
 
 StaticJsonDocument<200> jsonDoc;
@@ -28,7 +29,7 @@ JsonObject root = jsonDoc.to<JsonObject>();
 
 void setup() {
   Serial.begin(SerialBaudrate);
-  arduinoSerial.begin(SSBaudrate);
+  arduinoSerial.begin(SSBaudrate);  //Khởi tạo port serial ảo
   pinMode(RX, INPUT);
   pinMode(TX, OUTPUT);
 
@@ -45,6 +46,7 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
 
+//Kiểm tra kết nối đến server. Câu lệnh connect dùng thêm namespace vì server chia ra làm 2 socketio: webapp và esp
   if (!client.connect(host, port, namespace_esp8266)) {
     Serial.println("Failed to connnect to server");
     return;
@@ -56,16 +58,20 @@ void loop() {
   while (arduinoSerial.available() > 0) {
     float val = arduinoSerial.parseFloat();
     if (arduinoSerial.read() == '\n') {
-      root["digital"] = val;
+      root["digital"] = val;  //Gán key vào json
+
+      //Chuyển json thành string, vì hàm client.send() cần truyền tham số là string
       String jsonString;
-      serializeJson(jsonDoc, jsonString);
+      serializeJson(jsonDoc, jsonString); //Câu lệnh này có thể dùng để in (như dòng dưới) hoặc dùng để tạo ra gán giá trị cho biến
       
       if (DEBUG){
         serializeJson(jsonDoc, Serial);
         Serial.println();
       }
 
+      //Sau khi tạo chuỗi json, gửi đến socketserver
       if (client.connect(host, port, namespace_esp8266)){
+        //Nếu kết nối thành công, thực hiện gửi đi
         client.send("TEMPERATURE", jsonString);
       }
     }
