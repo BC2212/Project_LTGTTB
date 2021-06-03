@@ -15,10 +15,14 @@ SerialCommand sCmd(mySerial;)
 
 SocketIOClient client;
 
-const char* ssid = "BC22QN";
-const char* password = "300736253";
-
+// const char* ssid = "BC22QN";
+// const char* password = "300736253";
 char host[] = "192.168.10.22";
+
+const char* ssid = "C202";
+const char* password = "ciscoc202";
+char host[] = "192.168.10.45";
+
 int port = 3484;
 char namespace_esp8266[] = "esp8266";
 
